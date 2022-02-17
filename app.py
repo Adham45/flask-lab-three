@@ -11,7 +11,7 @@ PASSWORD = "1234"
 app = Flask(__name__)
 
 # jwt configuration
-app.config['JWT_SECRET_KEY'] = "secret1246"
+app.config['JWT_SECRET_KEY'] = "secrt1246"
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 
 jwt = JWTManager(app)
@@ -36,6 +36,7 @@ db.create_all()  # migration
 
 
 @app.route('/task', methods=['GET', 'POST'])
+@jwt_required()
 def task():
     if request.method == 'GET':
         all_tasks = Task.query.all()
@@ -96,7 +97,7 @@ def edit_task(id):
 
         return jsonify({
             "status": "success",
-            "data": "user upadted successfully"
+            "data": "Task upadted successfully"
         })
 
     if request.method == 'DELETE':
@@ -105,7 +106,7 @@ def edit_task(id):
 
         return jsonify({
             "status": "success",
-            "data": "user deleted successfully"
+            "data": "Task deleted successfully"
         })
 
 
